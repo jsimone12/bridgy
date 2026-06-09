@@ -170,7 +170,7 @@ body{font-family:'Nunito',sans-serif;background:var(--lavender);color:var(--navy
     </svg>
     <input class="w-name-input" id="child-name" type="text" placeholder="Type your first name" maxlength="20"/>
   </div>
-  <button class="w-go-btn" onclick="startGame()">LET'S GO!</button>
+  <button class="w-go-btn" id="go-btn">LET'S GO!</button>
   <div class="w-dots">
     <div class="w-dot active"></div>
     <div class="w-dot"></div>
@@ -525,6 +525,7 @@ function restart(){
 document.getElementById('child-name').addEventListener('keypress',function(e){
   if(e.key==='Enter') startGame();
 });
+document.getElementById('go-btn').addEventListener('click', startGame);
 </script>
 </body>
 </html>
