@@ -145,7 +145,7 @@ body{font-family:'Nunito',sans-serif;background:var(--lavender);color:var(--navy
 <div class="phone">
 
 <!-- WELCOME -->
-<div class="screen welcome-screen active" id="screen-welcome">
+<div class="screen welcome-screen" id="screen-welcome" style="display:flex;">
   <div class="w-logo">
     <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
       <circle cx="20" cy="20" r="20" fill="#2B40F1"/>
@@ -181,7 +181,7 @@ body{font-family:'Nunito',sans-serif;background:var(--lavender);color:var(--navy
 </div>
 
 <!-- QUESTION -->
-<div class="screen q-screen" id="screen-question" style="flex-direction:column;">
+<div class="screen q-screen" id="screen-question" style="display:none;flex-direction:column;">
   <div class="q-header">
     <button class="q-back" onclick="goBack()">←</button>
     <div class="q-counter" id="q-counter">Question 1 of 4</div>
@@ -213,7 +213,7 @@ body{font-family:'Nunito',sans-serif;background:var(--lavender);color:var(--navy
 </div>
 
 <!-- RESULTS -->
-<div class="screen results-screen" id="screen-results" style="flex-direction:column;">
+<div class="screen results-screen" id="screen-results" style="display:none;flex-direction:column;">
   <div class="r-header">
     <img src="bridgy-hero.png" class="r-mascot" alt="Bridgy" style="width:56px;height:56px;object-fit:contain;"/>
     <div class="r-bubble"><div class="r-bubble-text" id="r-greeting">Here's your personalized roadmap!</div></div>
@@ -364,10 +364,14 @@ var currentQ = 0;
 var answers = [];
 var selectedRM = null;
 
+var SCREENS = ['screen-welcome','screen-question','screen-loading','screen-results'];
 function showScreen(id){
-  var screens = document.querySelectorAll('.screen');
-  for(var i=0;i<screens.length;i++) screens[i].classList.remove('active');
-  document.getElementById(id).classList.add('active');
+  for(var i=0;i<SCREENS.length;i++){
+    var el = document.getElementById(SCREENS[i]);
+    if(el) el.style.display = 'none';
+  }
+  var target = document.getElementById(id);
+  if(target) target.style.display = 'flex';
 }
 
 function startGame(){
