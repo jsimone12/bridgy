@@ -46,8 +46,9 @@ nav{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1px solid #f
 .hero-desc{font-size:15px;font-weight:600;color:#4b5563;line-height:1.6;max-width:380px;margin:0 auto 24px;}
 
 /* Bridgy mini scene */
-.hero-scene-wrap{position:relative;width:220px;margin:0 auto 24px;}
-.speech-bubble-hero{background:#fff;border:2px solid var(--border);border-radius:12px 12px 12px 4px;padding:8px 12px;font-size:11px;font-weight:700;color:var(--navy);line-height:1.4;text-align:left;position:absolute;top:8px;right:8px;width:130px;box-shadow:0 4px 16px rgba(43,64,241,0.1);z-index:2;}
+.hero-scene-wrap{position:relative;width:100%;max-width:400px;margin:0 auto 24px;display:block;}
+.speech-bubble-hero{background:#fff;border:2px solid var(--border);border-radius:12px 12px 4px 12px;padding:8px 12px;font-size:11px;font-weight:700;color:var(--navy);line-height:1.4;text-align:left;position:absolute;top:10px;right:10px;width:120px;box-shadow:0 4px 16px rgba(43,64,241,0.1);z-index:2;}
+.speech-bubble-hero::after{content:'';position:absolute;bottom:-10px;right:14px;border:6px solid transparent;border-top-color:#fff;}
 .speech-bubble-hero span{color:var(--blue);font-weight:900;}
 .speech-bubble-hero::after{content:'';position:absolute;bottom:-12px;left:28px;border:6px solid transparent;border-top-color:#fff;}
 
@@ -402,7 +403,7 @@ nav{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1px solid #f
         <ul class="roadmap-steps" id="roadmap-steps"></ul>
       </div>
       <div class="affirmation-bar" id="roadmap-affirmation"></div>
-      <button class="purchase-btn" onclick="alert('The gamified roadmap is coming soon!')">🚀 Get the Full Gamified Roadmap</button>
+      <button class="purchase-btn" onclick="window.location.href='https://learn.bridgealliancehub.com/chekout-page'">🚀 Get the Full Gamified Roadmap</button>
       <div class="purchase-sub">Unlock interactive challenges, progress tracking, and more.</div>
     </div>
   </div>
