@@ -47,7 +47,7 @@ nav{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1px solid #f
 
 /* Bridgy mini scene */
 .hero-scene-wrap{position:relative;width:220px;margin:0 auto 24px;}
-.speech-bubble-hero{background:#fff;border:2px solid var(--border);border-radius:12px 12px 12px 4px;padding:7px 10px;font-size:11px;font-weight:700;color:var(--navy);line-height:1.3;text-align:left;position:absolute;top:8px;right:4px;left:auto;width:120px;box-shadow:0 4px 16px rgba(43,64,241,0.1);z-index:2;}
+.speech-bubble-hero{background:#fff;border:2px solid var(--border);border-radius:12px 12px 12px 4px;padding:8px 12px;font-size:11px;font-weight:700;color:var(--navy);line-height:1.4;text-align:left;position:absolute;top:8px;right:8px;width:130px;box-shadow:0 4px 16px rgba(43,64,241,0.1);z-index:2;}
 .speech-bubble-hero span{color:var(--blue);font-weight:900;}
 .speech-bubble-hero::after{content:'';position:absolute;bottom:-12px;left:28px;border:6px solid transparent;border-top-color:#fff;}
 
@@ -239,8 +239,8 @@ nav{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1px solid #f
 
     <!-- Mobile Bridgy scene sits here, desktop moves to right col via grid -->
     <div class="hero-scene-wrap" id="mobile-scene">
-      <div class="speech-bubble-hero">Hi there! I'm <span>Bridgy</span>. Let's build your roadmap!</div>
       <img src="bridgy-hero.png" alt="Bridgy the independence guide standing on a path" style="width:100%;border-radius:16px;"/>
+      <div class="speech-bubble-hero">Hi there! I'm <span>Bridgy</span>. Let's build your roadmap!</div>
     </div>
 
     <ul class="hero-checks">
@@ -515,7 +515,8 @@ function submitGate(){
   var phone=document.getElementById('f-phone').value.trim();
   if(!fname||!email){alert('Please enter your first name and email to continue.');return;}
   var payload={firstName:fname,lastName:lname,email:email,phone:phone,quiz_challenge:quizAnswers[0]||'',quiz_learning_style:quizAnswers[1]||'',quiz_goal:quizAnswers[2]||'',quiz_support_plan:quizAnswers[3]||'',quiz_independence_vision:quizAnswers[4]||'',quiz_involvement:quizAnswers[5]||''};
-  fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),mode:'no-cors'}).catch(function(){});
+  var formBody = Object.keys(payload).map(function(k){return encodeURIComponent(k)+'='+encodeURIComponent(payload[k]);}).join('&');
+  fetch(WEBHOOK,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:formBody,mode:'no-cors'}).catch(function(){});
   buildRoadmap(fname,payload);
   showStep('step-roadmap');
 }
