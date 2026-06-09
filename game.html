@@ -4,532 +4,327 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Bridgy's Independence Roadmap</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --blue:#2B40F1;
-  --blue-dark:#1c2eb5;
-  --gold:#C9A84C;
-  --navy:#0D1B4B;
-  --lavender:#eef1ff;
-  --gray:#6b7280;
-  --border:#c7d2fe;
-  --white:#ffffff;
-}
-body{font-family:'Nunito',sans-serif;background:var(--lavender);color:var(--navy);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px;}
-
-/* PHONE SHELL */
-.phone{width:100%;max-width:390px;min-height:720px;background:var(--lavender);border-radius:32px;overflow:hidden;position:relative;box-shadow:0 20px 60px rgba(13,27,75,0.15);}
-
-/* SCREENS */
-.screen{display:none;flex-direction:column;min-height:720px;padding:0;}
-.screen.active{display:flex;}
-
-/* ── WELCOME SCREEN ── */
-.welcome-screen{background:var(--lavender);padding:32px 24px 40px;align-items:center;text-align:center;}
-.w-logo{display:flex;align-items:center;gap:8px;margin-bottom:32px;align-self:flex-start;}
-.w-logo-text{font-size:11px;font-weight:900;color:var(--blue);text-transform:uppercase;letter-spacing:0.05em;}
-.w-bubble{background:var(--white);border-radius:20px;padding:20px 24px;box-shadow:0 4px 20px rgba(43,64,241,0.1);border:1px solid var(--border);margin-bottom:0;text-align:left;width:100%;position:relative;}
-.w-bubble::after{content:'';position:absolute;bottom:-14px;left:40px;border:7px solid transparent;border-top-color:var(--white);}
-.w-bubble p{font-size:20px;font-weight:700;color:var(--navy);line-height:1.5;}
-.w-bubble p span{color:var(--blue);font-weight:900;}
-.w-bridgy{width:180px;margin:14px 0 8px;}
-.w-tagline{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px;}
-.w-tagline strong{font-weight:900;}
-.w-name-wrap{width:100%;position:relative;margin-bottom:20px;}
-.w-name-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);}
-.w-name-input{width:100%;border:2px solid var(--border);border-radius:16px;padding:16px 16px 16px 44px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:600;color:var(--navy);background:var(--white);outline:none;}
-.w-name-input:focus{border-color:var(--blue);}
-.w-name-input::placeholder{color:#9ca3af;}
-.w-go-btn{width:100%;background:var(--blue);color:#fff;border:none;border-radius:16px;padding:18px;font-family:'Nunito',sans-serif;font-size:18px;font-weight:900;cursor:pointer;letter-spacing:0.05em;transition:background 0.2s;}
-.w-go-btn:hover{background:var(--blue-dark);}
-.w-dots{display:flex;gap:8px;margin-top:24px;}
-.w-dot{width:10px;height:10px;border-radius:50%;background:var(--border);}
-.w-dot.active{background:var(--blue);width:24px;border-radius:6px;}
-
-/* ── QUESTION SCREEN ── */
-.q-screen{background:var(--white);padding:0;}
-.q-header{padding:20px 20px 0;display:flex;align-items:center;gap:12px;}
-.q-back{background:none;border:none;cursor:pointer;font-size:20px;color:var(--navy);padding:4px;}
-.q-counter{flex:1;text-align:center;font-size:14px;font-weight:700;color:var(--gray);}
-.q-progress{height:6px;background:var(--lavender);margin:12px 20px 0;border-radius:20px;overflow:hidden;}
-.q-bar{height:100%;background:var(--blue);border-radius:20px;transition:width 0.4s ease;}
-.q-body{padding:20px;flex:1;display:flex;flex-direction:column;}
-.q-mascot-row{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
-.q-mascot{width:60px;height:60px;flex-shrink:0;}
-.q-bubble{background:var(--lavender);border-radius:0 16px 16px 16px;padding:14px 16px;flex:1;}
-.q-bubble-text{font-size:16px;font-weight:800;color:var(--navy);line-height:1.3;}
-.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;flex:1;}
-.q-opt{background:var(--blue);color:#fff;border:none;border-radius:16px;padding:16px 12px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;text-align:center;line-height:1.3;position:relative;transition:all 0.15s;min-height:80px;display:flex;align-items:center;justify-content:center;}
-.q-opt.selected{background:var(--gold);color:var(--navy);}
-.q-opt .check{position:absolute;top:8px;right:8px;width:20px;height:20px;background:rgba(255,255,255,0.3);border-radius:50%;display:none;align-items:center;justify-content:center;font-size:11px;}
-.q-opt.selected .check{display:flex;background:rgba(255,255,255,0.5);}
-.q-feedback{display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--lavender);border-radius:12px;margin-bottom:16px;min-height:48px;}
-.q-feedback-star{font-size:18px;}
-.q-feedback-text{font-size:13px;font-weight:700;color:var(--navy);}
-.q-next{width:100%;background:var(--blue);color:#fff;border:none;border-radius:16px;padding:18px;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:not-allowed;opacity:0.35;letter-spacing:0.05em;transition:all 0.2s;}
-.q-next.ready{opacity:1;cursor:pointer;}
-
-/* ── LOADING SCREEN ── */
-.loading-screen{background:var(--lavender);align-items:center;justify-content:center;text-align:center;padding:40px 24px;}
-.l-bubble{background:var(--white);border-radius:20px;padding:18px 24px;box-shadow:0 4px 20px rgba(43,64,241,0.1);margin-bottom:20px;font-size:17px;font-weight:700;color:var(--navy);line-height:1.5;}
-.l-bridgy{width:160px;animation:bob 1.2s ease-in-out infinite;}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-.l-spinner{width:48px;height:48px;border:4px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin 0.9s linear infinite;margin:24px auto 16px;}
+body{font-family:'Nunito',sans-serif;background:#eef1ff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px;}
+.wrap{width:100%;max-width:400px;}
+.card{background:#fff;border-radius:24px;padding:28px 24px;box-shadow:0 8px 32px rgba(43,64,241,0.1);}
+h1{font-size:26px;font-weight:900;color:#0D1B4B;margin-bottom:8px;line-height:1.2;}
+h1 span{color:#2B40F1;}
+p.sub{font-size:14px;font-weight:600;color:#6b7280;margin-bottom:20px;line-height:1.5;}
+img.bridgy{width:140px;display:block;margin:0 auto 16px;}
+input[type=text]{width:100%;border:2px solid #c7d2fe;border-radius:12px;padding:14px 16px;font-family:'Nunito',sans-serif;font-size:16px;font-weight:700;color:#0D1B4B;outline:none;margin-bottom:16px;display:block;}
+input[type=text]:focus{border-color:#2B40F1;}
+.btn{display:block;width:100%;background:#2B40F1;color:#fff;border:none;border-radius:12px;padding:16px;font-family:'Nunito',sans-serif;font-size:17px;font-weight:900;cursor:pointer;text-align:center;margin-bottom:8px;}
+.btn-gold{background:#C9A84C;}
+.btn-outline{background:#fff;color:#2B40F1;border:2px solid #2B40F1;}
+.progress-wrap{background:#eef1ff;border-radius:20px;height:8px;margin-bottom:20px;overflow:hidden;}
+.progress-bar{height:100%;background:#2B40F1;border-radius:20px;transition:width 0.3s;}
+.q-text{font-size:18px;font-weight:900;color:#0D1B4B;margin-bottom:16px;line-height:1.3;}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.opt{background:#2B40F1;color:#fff;border:none;border-radius:14px;padding:16px 10px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;cursor:pointer;text-align:center;line-height:1.4;min-height:72px;display:flex;align-items:center;justify-content:center;}
+.opt.sel{background:#C9A84C;color:#0D1B4B;}
+.hint{font-size:13px;font-weight:700;color:#6b7280;text-align:center;margin-bottom:14px;min-height:20px;}
+.back-btn{background:none;border:none;font-size:15px;font-weight:700;color:#6b7280;cursor:pointer;margin-bottom:16px;padding:0;}
+.top-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.q-count{font-size:13px;font-weight:700;color:#6b7280;}
+.step-list{list-style:none;margin-bottom:16px;}
+.step-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #eef1ff;font-size:13px;font-weight:700;color:#0D1B4B;line-height:1.4;align-items:flex-start;}
+.step-item:last-child{border-bottom:none;}
+.step-num{background:#2B40F1;color:#fff;border-radius:7px;min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;}
+.aff-box{background:#2B40F1;border-radius:16px;padding:18px;margin-bottom:16px;}
+.aff-label{font-size:11px;font-weight:800;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;}
+.aff-text{font-size:13px;font-weight:700;color:#C9A84C;line-height:1.6;}
+.pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.pill{background:#eef1ff;color:#2B40F1;border-radius:20px;padding:5px 12px;font-size:12px;font-weight:800;}
+.profile-title{font-size:20px;font-weight:900;color:#2B40F1;margin-bottom:10px;}
+.section-label{font-size:11px;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;}
+.two-btn{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.spinner{width:40px;height:40px;border:4px solid #c7d2fe;border-top-color:#2B40F1;border-radius:50%;animation:spin 0.8s linear infinite;margin:20px auto;}
 @keyframes spin{to{transform:rotate(360deg)}}
-.l-status{font-size:18px;font-weight:800;color:var(--navy);margin-bottom:6px;}
-.l-sub{font-size:14px;font-weight:600;color:var(--gray);}
-.l-sparkles{font-size:20px;letter-spacing:12px;margin-top:24px;color:var(--gold);}
+.loading-text{text-align:center;font-size:17px;font-weight:800;color:#0D1B4B;margin-bottom:6px;}
+.loading-sub{text-align:center;font-size:13px;font-weight:600;color:#6b7280;}
+.hidden{display:none;}
 
-/* ── RESULTS SCREEN ── */
-.results-screen{background:var(--lavender);padding:0;}
-.r-header{background:var(--white);padding:20px 20px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--lavender);}
-.r-mascot{width:56px;height:56px;flex-shrink:0;}
-.r-bubble{background:var(--lavender);border-radius:0 14px 14px 14px;padding:12px 14px;flex:1;}
-.r-bubble-text{font-size:14px;font-weight:700;color:var(--navy);}
-.r-scroll{padding:16px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:12px;}
-
-.r-card{background:var(--white);border-radius:20px;padding:18px;}
-.r-card-num{width:28px;height:28px;background:var(--lavender);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:var(--blue);margin-bottom:10px;}
-.r-card-label{font-size:11px;font-weight:800;color:var(--gray);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;}
-.r-profile-title{font-size:22px;font-weight:900;color:var(--blue);margin-bottom:12px;text-align:center;}
-.r-star{font-size:24px;text-align:center;margin-bottom:8px;}
-.r-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
-.r-pill{background:var(--lavender);color:var(--blue);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:800;}
-.r-pill.gold{background:#fdf3dc;color:#92660a;}
-.r-pill.purple{background:#f3f0ff;color:#5b21b6;}
-
-.r-steps{list-style:none;display:flex;flex-direction:column;gap:8px;}
-.r-step{display:flex;align-items:flex-start;gap:10px;font-size:13px;font-weight:700;color:var(--navy);line-height:1.4;}
-.r-step-num{background:var(--blue);color:#fff;border-radius:8px;min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;margin-top:1px;}
-
-.r-affirmation{background:var(--blue);border-radius:20px;padding:20px;position:relative;}
-.r-aff-label{font-size:11px;font-weight:800;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;}
-.r-aff-text{font-size:14px;font-weight:700;color:var(--gold);line-height:1.6;}
-.r-aff-heart{position:absolute;bottom:16px;right:16px;font-size:20px;}
-
-.r-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;}
-.r-print-btn{background:var(--white);color:var(--navy);border:2px solid var(--border);border-radius:14px;padding:14px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
-.r-restart-btn{background:var(--blue);color:#fff;border:none;border-radius:14px;padding:14px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;}
-
-/* ── PRINT STYLES ── */
 @media print{
   body{background:#fff;padding:0;}
-  .phone{box-shadow:none;border-radius:0;max-width:100%;}
-  .screen{display:none!important;}
-  #print-area{display:block!important;}
+  .wrap{max-width:100%;}
+  .no-print{display:none!important;}
+  .print-only{display:block!important;}
 }
-#print-area{display:none;padding:32px;font-family:'Nunito',sans-serif;color:var(--navy);}
-.print-header{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:16px;border-bottom:3px solid var(--blue);}
-.print-logo{width:48px;height:48px;}
-.print-brand{font-size:14px;font-weight:900;color:var(--blue);text-transform:uppercase;}
-.print-name{font-size:28px;font-weight:900;color:var(--navy);margin-bottom:4px;}
-.print-subtitle{font-size:14px;font-weight:600;color:var(--gray);margin-bottom:24px;}
-.print-section{margin-bottom:20px;}
-.print-section-title{font-size:12px;font-weight:900;color:var(--blue);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;}
-.print-profile-title{font-size:22px;font-weight:900;color:var(--blue);margin-bottom:10px;}
-.print-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
-.print-pill{background:var(--lavender);color:var(--blue);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:800;}
-.print-steps{list-style:none;}
-.print-step{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #eee;font-size:13px;font-weight:700;line-height:1.4;}
-.print-step-num{background:var(--blue);color:#fff;border-radius:6px;min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex-shrink:0;}
-.print-affirmation{background:var(--blue);color:#fff;border-radius:14px;padding:18px;margin-top:16px;}
-.print-aff-label{font-size:11px;font-weight:800;color:rgba(255,255,255,0.7);text-transform:uppercase;margin-bottom:6px;}
-.print-aff-text{font-size:14px;font-weight:700;color:var(--gold);line-height:1.6;}
-.print-footer{margin-top:24px;text-align:center;font-size:11px;color:var(--gray);font-weight:600;}
+.print-only{display:none;}
 </style>
 </head>
 <body>
-
-<div class="phone">
+<div class="wrap">
 
 <!-- WELCOME -->
-<div class="screen welcome-screen" id="screen-welcome" style="display:flex;">
-  <div class="w-logo">
-    <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
-      <circle cx="20" cy="20" r="20" fill="#2B40F1"/>
-      <circle cx="20" cy="17" r="9" fill="#fff"/>
-      <circle cx="16.5" cy="15.5" r="2.5" fill="#2B40F1"/>
-      <circle cx="23.5" cy="15.5" r="2.5" fill="#2B40F1"/>
-      <circle cx="17" cy="15" r="1" fill="#fff"/>
-      <circle cx="24" cy="15" r="1" fill="#fff"/>
-      <path d="M16 20 Q20 23 24 20" stroke="#2B40F1" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-    </svg>
-    <span class="w-logo-text">Bridge Alliance Hub</span>
-  </div>
-  <div class="w-bubble">
-    <p>Hi there!<br>I'm <span>Bridgy</span>.<br>What's your name?</p>
-  </div>
-  <img src="bridgy-hero.png" class="w-bridgy" alt="Bridgy"/>
-  <p class="w-tagline">Let's build your<br><strong>Independence Roadmap!</strong></p>
-  <div class="w-name-wrap">
-    <svg class="w-name-icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="8" r="4" stroke="#9ca3af" stroke-width="1.8"/>
-      <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="#9ca3af" stroke-width="1.8" stroke-linecap="round"/>
-    </svg>
-    <input class="w-name-input" id="child-name" type="text" placeholder="Type your first name" maxlength="20"/>
-  </div>
-  <button class="w-go-btn" id="go-btn">LET'S GO!</button>
-  <div class="w-dots">
-    <div class="w-dot active"></div>
-    <div class="w-dot"></div>
-    <div class="w-dot"></div>
-    <div class="w-dot"></div>
-    <div class="w-dot"></div>
-  </div>
+<div id="s-welcome" class="card">
+  <img src="bridgy-hero.png" class="bridgy" alt="Bridgy"/>
+  <h1>Let's build your<br><span>Independence Roadmap!</span></h1>
+  <p class="sub">Hi! I'm Bridgy. Answer 4 quick questions and I'll build a plan just for you.</p>
+  <input type="text" id="child-name" placeholder="Type your first name"/>
+  <button class="btn" id="btn-go">LET'S GO!</button>
 </div>
 
 <!-- QUESTION -->
-<div class="screen q-screen" id="screen-question" style="display:none;flex-direction:column;">
-  <div class="q-header">
-    <button class="q-back" onclick="goBack()">←</button>
-    <div class="q-counter" id="q-counter">Question 1 of 4</div>
-    <div style="width:32px;"></div>
+<div id="s-question" class="card hidden">
+  <div class="top-row">
+    <button class="back-btn" id="btn-back">← Back</button>
+    <span class="q-count" id="q-count">Question 1 of 4</span>
   </div>
-  <div class="q-progress"><div class="q-bar" id="q-bar" style="width:25%"></div></div>
-  <div class="q-body">
-    <div class="q-mascot-row">
-      <img src="bridgy-hero.png" class="q-mascot" alt="Bridgy" style="width:60px;height:60px;object-fit:contain;"/>
-      <div class="q-bubble"><div class="q-bubble-text" id="q-text"></div></div>
-    </div>
-    <div class="q-grid" id="q-grid"></div>
-    <div class="q-feedback" id="q-feedback">
-      <span class="q-feedback-star">⭐</span>
-      <span class="q-feedback-text" id="q-feedback-text">Pick an answer to keep going!</span>
-    </div>
-    <button class="q-next" id="q-next" onclick="nextQ()">NEXT</button>
-  </div>
+  <div class="progress-wrap"><div class="progress-bar" id="q-bar" style="width:25%"></div></div>
+  <div class="q-text" id="q-text"></div>
+  <div class="opts" id="q-opts"></div>
+  <div class="hint" id="q-hint">Pick one to continue</div>
+  <button class="btn hidden" id="btn-next">NEXT</button>
 </div>
 
 <!-- LOADING -->
-<div class="screen loading-screen" id="screen-loading">
-  <div class="l-bubble" id="l-bubble">Building your roadmap...</div>
-  <img src="bridgy-hero.png" class="l-bridgy" alt="Bridgy" style="width:160px;"/>
-  <div class="l-spinner"></div>
-  <div class="l-status" id="l-status">Personalizing your plan...</div>
-  <div class="l-sub">This will only take a moment!</div>
-  <div class="l-sparkles">✦ ✦ ✦</div>
+<div id="s-loading" class="card hidden" style="text-align:center;padding:48px 24px;">
+  <img src="bridgy-hero.png" class="bridgy" alt="Bridgy"/>
+  <div class="spinner"></div>
+  <div class="loading-text" id="l-text">Building your roadmap...</div>
+  <div class="loading-sub">This will only take a moment!</div>
 </div>
 
 <!-- RESULTS -->
-<div class="screen results-screen" id="screen-results" style="display:none;flex-direction:column;">
-  <div class="r-header">
-    <img src="bridgy-hero.png" class="r-mascot" alt="Bridgy" style="width:56px;height:56px;object-fit:contain;"/>
-    <div class="r-bubble"><div class="r-bubble-text" id="r-greeting">Here's your personalized roadmap!</div></div>
+<div id="s-results" class="card hidden">
+  <img src="bridgy-hero.png" class="bridgy" alt="Bridgy" style="width:80px;"/>
+  <p class="sub" id="r-greeting" style="margin-bottom:16px;"></p>
+  <div class="section-label">Your Profile</div>
+  <div class="profile-title" id="r-title"></div>
+  <div class="pill-row" id="r-pills"></div>
+  <div class="section-label">Your Roadmap</div>
+  <ul class="step-list" id="r-steps"></ul>
+  <div class="aff-box">
+    <div class="aff-label">Your Affirmation</div>
+    <div class="aff-text" id="r-aff"></div>
   </div>
-  <div class="r-scroll">
-    <!-- Profile card -->
-    <div class="r-card">
-      <div class="r-card-num">1</div>
-      <div class="r-card-label">Your Profile</div>
-      <div class="r-star">⭐</div>
-      <div class="r-profile-title" id="r-profile-title"></div>
-      <div class="r-pills" id="r-pills"></div>
-    </div>
-    <!-- Roadmap card -->
-    <div class="r-card">
-      <div class="r-card-num">2</div>
-      <div class="r-card-label">Your Roadmap</div>
-      <ul class="r-steps" id="r-steps"></ul>
-    </div>
-    <!-- Affirmation -->
-    <div class="r-affirmation">
-      <div class="r-aff-label">3 &nbsp; Your Affirmation</div>
-      <div class="r-aff-text" id="r-affirmation"></div>
-      <div class="r-aff-heart">❤️</div>
-    </div>
-    <!-- Actions -->
-    <div class="r-actions">
-      <button class="r-print-btn" onclick="printPlan()">🖨️ PRINT PLAN</button>
-      <button class="r-restart-btn" onclick="restart()">START OVER</button>
-    </div>
+  <div class="two-btn no-print">
+    <button class="btn btn-outline" id="btn-print">🖨️ Print Plan</button>
+    <button class="btn" id="btn-restart">Start Over</button>
   </div>
 </div>
 
-</div><!-- /phone -->
-
-<!-- PRINT AREA -->
-<div id="print-area">
-  <div class="print-header">
-    <svg class="print-logo" width="48" height="48" viewBox="0 0 40 40" fill="none">
-      <circle cx="20" cy="20" r="20" fill="#2B40F1"/>
-      <circle cx="20" cy="17" r="9" fill="#fff"/>
-      <circle cx="16.5" cy="15.5" r="2.5" fill="#2B40F1"/>
-      <circle cx="23.5" cy="15.5" r="2.5" fill="#2B40F1"/>
-      <path d="M16 20 Q20 23 24 20" stroke="#2B40F1" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-    </svg>
-    <div>
-      <div class="print-brand">Bridge Alliance Hub</div>
-      <div style="font-size:11px;color:#6b7280;font-weight:600;">Bridgy's Independence Roadmap</div>
-    </div>
-  </div>
-  <div class="print-name" id="print-name"></div>
-  <div class="print-subtitle" id="print-subtitle"></div>
-  <div class="print-section">
-    <div class="print-section-title">Your Profile</div>
-    <div class="print-profile-title" id="print-profile-title"></div>
-    <div class="print-pills" id="print-pills"></div>
-  </div>
-  <div class="print-section">
-    <div class="print-section-title">Your Independence Roadmap</div>
-    <ul class="print-steps" id="print-steps"></ul>
-  </div>
-  <div class="print-affirmation">
-    <div class="print-aff-label">Your Affirmation</div>
-    <div class="print-aff-text" id="print-affirmation"></div>
-  </div>
-  <div class="print-footer">bridgealliancehub.com &nbsp;|&nbsp; Empowering each child to reach their highest level of independence.</div>
-</div>
+</div><!-- /wrap -->
 
 <script>
 var questions = [
   {
-    text:"What's your independence goal?",
-    feedbackSelected:"Great choice! Let's keep going.",
-    opts:[
-      {label:"Get ready\nfor school",value:"get ready for school independently each morning"},
-      {label:"Cook a meal\nor snack",value:"cook a meal or snack independently"},
-      {label:"Stay organized\nwith my\nschoolwork",value:"stay organized with schoolwork and assignments"},
-      {label:"Speak up\nfor myself",value:"self-advocate and speak up for my own needs"},
-      {label:"Stay focused\nin class",value:"stay focused and minimize distractions in class"},
-      {label:"Learn how to\nstudy for a test",value:"learn effective study skills and prepare for tests"}
+    text: "What's your independence goal?",
+    opts: [
+      {label:"Get ready\nfor school", val:"school"},
+      {label:"Cook a meal\nor snack", val:"cook"},
+      {label:"Stay organized\nwith schoolwork", val:"organized"},
+      {label:"Speak up\nfor myself", val:"advocate"},
+      {label:"Stay focused\nin class", val:"focus"},
+      {label:"Learn how to\nstudy for a test", val:"study"}
     ]
   },
   {
-    text:"What gets in your way?",
-    feedbackSelected:"Thanks! This helps me build your plan.",
-    opts:[
-      {label:"I forget steps\nor lose track",value:"forgetting steps and losing track of sequences"},
-      {label:"I get\ndistracted\neasily",value:"distractibility and staying focused"},
-      {label:"I don't know\nwhere to start",value:"not knowing where to begin or feeling overwhelmed"},
-      {label:"I lose track\nof time",value:"managing time and keeping up with schedules"}
+    text: "What gets in your way?",
+    opts: [
+      {label:"I forget steps\nor lose track", val:"forget"},
+      {label:"I get distracted\neasily", val:"distracted"},
+      {label:"I don't know\nwhere to start", val:"overwhelmed"},
+      {label:"I lose track\nof time", val:"time"}
     ]
   },
   {
-    text:"How do YOU learn best?",
-    feedbackSelected:"Perfect! I'll build your plan around that.",
-    opts:[
-      {label:"Checklists\nI can check off",value:"visual checklists with checkboxes"},
-      {label:"Pictures\nand visuals",value:"pictures, visuals, and diagrams"},
-      {label:"Short\nnumbered steps",value:"short numbered steps one at a time"},
-      {label:"Timed mini\nchallenges",value:"timed mini challenges and small wins"}
+    text: "How do YOU learn best?",
+    opts: [
+      {label:"Checklists\nI can check off", val:"checklist"},
+      {label:"Pictures\nand visuals", val:"visual"},
+      {label:"Short numbered\nsteps", val:"steps"},
+      {label:"Timed mini\nchallenges", val:"timed"}
     ]
   },
   {
-    text:"What's YOUR superpower?",
-    feedbackSelected:"Amazing! You're almost done.",
-    opts:[
-      {label:"I never\ngive up",value:"persistence and resilience"},
-      {label:"I'm\ncreative",value:"creativity and thinking outside the box"},
-      {label:"I'm great\nwith people",value:"strong people skills and empathy"},
-      {label:"I love solving\nproblems",value:"problem-solving and logical thinking"}
+    text: "What's YOUR superpower?",
+    opts: [
+      {label:"I never\ngive up", val:"persistent"},
+      {label:"I'm\ncreative", val:"creative"},
+      {label:"I'm great\nwith people", val:"social"},
+      {label:"I love solving\nproblems", val:"solver"}
     ]
   }
 ];
 
 var roadmaps = {
-  focus:{
-    title:"The Focused Problem-Solver",
-    pills:["Determined","Creative","Analytical"],
-    pillColors:["","gold","purple"],
-    steps:["Break tasks into short steps","Use a timer to stay on track","Eliminate distractions","Check your progress halfway","Ask for help when you need it","Celebrate your wins!"],
-    affirmation:"You have what it takes to reach your goals. You stay focused, solve problems, and never give up. Keep going!"
+  focus: {
+    title: "The Focused Problem-Solver",
+    pills: ["Determined","Creative","Analytical"],
+    steps: ["Break tasks into short steps","Use a timer to stay on track","Eliminate distractions before starting","Check your progress halfway through","Ask for help when you need it","Celebrate every win!"]
   },
-  organized:{
-    title:"The Organization Champion",
-    pills:["Consistent","Detail-Oriented","Prepared"],
-    pillColors:["","gold","purple"],
-    steps:["Set up your workspace before starting","Use a color-coded planner every day","Pack your bag the night before","Review your to-do list each morning","Ask for help when things pile up","Celebrate every organized day!"],
-    affirmation:"You are building skills that will last a lifetime. Stay consistent and watch yourself grow stronger every single day!"
+  organized: {
+    title: "The Organization Champion",
+    pills: ["Consistent","Detail-Oriented","Prepared"],
+    steps: ["Set up your workspace before starting","Use a color-coded planner every day","Pack your bag the night before","Review your to-do list each morning","Take it one task at a time","Celebrate every organized day!"]
   },
-  academic:{
-    title:"The Academic Achiever",
-    pills:["Driven","Persistent","Curious"],
-    pillColors:["","gold","purple"],
-    steps:["Break study time into 20-minute blocks","Review notes the same day as class","Quiz yourself before every test","Ask your teacher one question a week","Find a study buddy you trust","Celebrate every improvement!"],
-    affirmation:"Learning is your superpower. Every time you study and try, you are becoming the best version of yourself. Keep going!"
+  academic: {
+    title: "The Academic Achiever",
+    pills: ["Driven","Persistent","Curious"],
+    steps: ["Break study time into 20-minute blocks","Review notes the same day as class","Quiz yourself before every test","Ask your teacher one question a week","Find a study buddy you trust","Celebrate every improvement!"]
   },
-  daily:{
-    title:"The Independence Builder",
-    pills:["Resilient","Brave","Capable"],
-    pillColors:["","gold","purple"],
-    steps:["Pick one new skill to practice this week","Break it into 3 simple steps","Practice the same time each day","Track your progress with a chart","Ask a trusted adult to cheer you on","Celebrate every small win!"],
-    affirmation:"You are braver than you believe and stronger than you know. Every step forward is proof that you CAN do this!"
+  daily: {
+    title: "The Independence Builder",
+    pills: ["Resilient","Brave","Capable"],
+    steps: ["Pick one new skill to practice this week","Break it into 3 simple steps","Practice at the same time each day","Track your progress with a chart","Ask a trusted adult to cheer you on","Celebrate every small win!"]
   }
+};
+
+var affirmations = {
+  focus: "You have what it takes to reach your goals. You stay focused, solve problems, and never give up. Keep going!",
+  organized: "You are building skills that will last a lifetime. Stay consistent and watch yourself grow stronger every single day!",
+  academic: "Learning is your superpower. Every time you study and try, you are becoming the best version of yourself. Keep going!",
+  daily: "You are braver than you believe and stronger than you know. Every step forward is proof that you CAN do this!"
 };
 
 var childName = '';
 var currentQ = 0;
 var answers = [];
-var selectedRM = null;
 
-var SCREENS = ['screen-welcome','screen-question','screen-loading','screen-results'];
-function showScreen(id){
-  for(var i=0;i<SCREENS.length;i++){
-    var el = document.getElementById(SCREENS[i]);
-    if(el) el.style.display = 'none';
+function show(id) {
+  var ids = ['s-welcome','s-question','s-loading','s-results'];
+  for (var i = 0; i < ids.length; i++) {
+    document.getElementById(ids[i]).style.display = 'none';
   }
-  var target = document.getElementById(id);
-  if(target) target.style.display = 'flex';
+  document.getElementById(id).style.display = 'block';
 }
 
-function startGame(){
+function startGame() {
   var n = document.getElementById('child-name').value.trim();
-  if(!n){document.getElementById('child-name').focus();return;}
+  if (!n) {
+    document.getElementById('child-name').style.borderColor = '#e24b4a';
+    document.getElementById('child-name').focus();
+    return;
+  }
   childName = n;
   currentQ = 0;
   answers = [];
-  showScreen('screen-question');
+  show('s-question');
   renderQ();
 }
 
-function renderQ(){
+function renderQ() {
   var q = questions[currentQ];
-  document.getElementById('q-counter').textContent = 'Question '+(currentQ+1)+' of '+questions.length;
-  document.getElementById('q-bar').style.width = (((currentQ+1)/questions.length)*100)+'%';
+  document.getElementById('q-count').textContent = 'Question ' + (currentQ + 1) + ' of ' + questions.length;
+  document.getElementById('q-bar').style.width = (((currentQ + 1) / questions.length) * 100) + '%';
   document.getElementById('q-text').textContent = q.text;
-  document.getElementById('q-feedback-text').textContent = 'Pick an answer to keep going!';
-  document.getElementById('q-feedback').style.background = 'var(--lavender)';
+  document.getElementById('q-hint').textContent = 'Pick one to continue';
+  document.getElementById('btn-next').style.display = 'none';
 
-  var nb = document.getElementById('q-next');
-  nb.className = 'q-next';
+  var container = document.getElementById('q-opts');
+  container.innerHTML = '';
 
-  var grid = document.getElementById('q-grid');
-  grid.innerHTML = '';
-
-  // 6 options = 2 cols, 4 options = 2 cols
-  for(var i=0;i<q.opts.length;i++){
-    (function(opt){
+  for (var i = 0; i < q.opts.length; i++) {
+    (function(opt) {
       var btn = document.createElement('button');
-      btn.className = 'q-opt';
-      btn.innerHTML = '<span class="check">✓</span>' + opt.label.replace(/\n/g,'<br>');
-      btn.onclick = function(){
-        var all = document.querySelectorAll('.q-opt');
-        for(var j=0;j<all.length;j++) all[j].classList.remove('selected');
-        btn.classList.add('selected');
-        answers[currentQ] = opt.value;
-        document.getElementById('q-feedback-text').textContent = q.feedbackSelected;
-        document.getElementById('q-next').className = 'q-next ready';
-      };
-      grid.appendChild(btn);
+      btn.className = 'opt';
+      btn.innerHTML = opt.label.replace(/\n/g, '<br>');
+      btn.addEventListener('click', function() {
+        var all = container.querySelectorAll('.opt');
+        for (var j = 0; j < all.length; j++) all[j].className = 'opt';
+        btn.className = 'opt sel';
+        answers[currentQ] = opt.val;
+        document.getElementById('q-hint').textContent = '⭐ Great choice! Tap Next to continue.';
+        document.getElementById('btn-next').style.display = 'block';
+      });
+      container.appendChild(btn);
     })(q.opts[i]);
   }
 }
 
-function nextQ(){
-  if(!answers[currentQ]) return;
+function nextQ() {
+  if (!answers[currentQ]) return;
   currentQ++;
-  if(currentQ < questions.length){
+  if (currentQ < questions.length) {
     renderQ();
   } else {
     buildResult();
   }
 }
 
-function goBack(){
-  if(currentQ > 0){currentQ--;renderQ();}
-  else{showScreen('screen-welcome');}
+function goBack() {
+  if (currentQ > 0) {
+    currentQ--;
+    renderQ();
+  } else {
+    show('s-welcome');
+  }
 }
 
-function buildResult(){
-  showScreen('screen-loading');
-  var msgs = [
-    'Building your roadmap...',
-    'Personalizing your plan...',
-    'Almost there!'
-  ];
+function buildResult() {
+  show('s-loading');
+  var msgs = ['Building your roadmap...', 'Personalizing your plan...', 'Almost there!'];
   var mi = 0;
-  var lt = setInterval(function(){
-    mi = (mi+1)%msgs.length;
-    document.getElementById('l-status').textContent = msgs[mi];
-  }, 1800);
+  var lt = setInterval(function() {
+    mi = (mi + 1) % msgs.length;
+    document.getElementById('l-text').textContent = msgs[mi];
+  }, 1200);
 
-  setTimeout(function(){
+  setTimeout(function() {
     clearInterval(lt);
 
-    // Pick roadmap
-    var goal = answers[0]||'';
-    var challenge = answers[1]||'';
-    var rm = roadmaps.academic;
-    if(goal.indexOf('focused')>-1||challenge.indexOf('distract')>-1) rm=roadmaps.focus;
-    else if(goal.indexOf('organized')>-1) rm=roadmaps.organized;
-    else if(goal.indexOf('daily')>-1||goal.indexOf('self-care')>-1) rm=roadmaps.daily;
-    selectedRM = rm;
+    var goal = answers[0] || '';
+    var rmKey = 'academic';
+    if (goal === 'focus' || goal === 'study') rmKey = 'focus';
+    else if (goal === 'organized' || goal === 'school') rmKey = 'organized';
+    else if (goal === 'cook' || goal === 'advocate') rmKey = 'daily';
 
-    // Render results
-    document.getElementById('r-greeting').textContent = 'Here's your personalized roadmap, '+childName+'!';
-    document.getElementById('r-profile-title').textContent = rm.title;
+    var rm = roadmaps[rmKey];
+    var aff = affirmations[rmKey];
+
+    document.getElementById('r-greeting').textContent = 'Here\'s your personalized roadmap, ' + childName + '!';
+    document.getElementById('r-title').textContent = rm.title;
+    document.getElementById('r-aff').textContent = aff;
 
     var pillsEl = document.getElementById('r-pills');
     pillsEl.innerHTML = '';
-    for(var i=0;i<rm.pills.length;i++){
-      var pill = document.createElement('span');
-      pill.className = 'r-pill'+(rm.pillColors[i]?' '+rm.pillColors[i]:'');
-      pill.textContent = rm.pills[i];
-      pillsEl.appendChild(pill);
+    for (var i = 0; i < rm.pills.length; i++) {
+      var span = document.createElement('span');
+      span.className = 'pill';
+      span.textContent = rm.pills[i];
+      pillsEl.appendChild(span);
     }
 
     var stepsEl = document.getElementById('r-steps');
     stepsEl.innerHTML = '';
-    for(var i=0;i<rm.steps.length;i++){
+    for (var i = 0; i < rm.steps.length; i++) {
       var li = document.createElement('li');
-      li.className = 'r-step';
-      li.innerHTML = '<span class="r-step-num">'+(i+1)+'</span><span>'+rm.steps[i]+'</span>';
+      li.className = 'step-item';
+      li.innerHTML = '<span class="step-num">' + (i + 1) + '</span><span>' + rm.steps[i] + '</span>';
       stepsEl.appendChild(li);
     }
 
-    document.getElementById('r-affirmation').textContent = rm.affirmation;
-
-    // Populate print area
-    document.getElementById('print-name').textContent = childName+"'s Independence Roadmap";
-    document.getElementById('print-subtitle').textContent = rm.title;
-    document.getElementById('print-profile-title').textContent = rm.title;
-
-    var printPills = document.getElementById('print-pills');
-    printPills.innerHTML = '';
-    for(var i=0;i<rm.pills.length;i++){
-      var pp = document.createElement('span');
-      pp.className = 'print-pill';
-      pp.textContent = rm.pills[i];
-      printPills.appendChild(pp);
-    }
-
-    var printSteps = document.getElementById('print-steps');
-    printSteps.innerHTML = '';
-    for(var i=0;i<rm.steps.length;i++){
-      var li = document.createElement('li');
-      li.className = 'print-step';
-      li.innerHTML = '<span class="print-step-num">'+(i+1)+'</span><span>'+rm.steps[i]+'</span>';
-      printSteps.appendChild(li);
-    }
-
-    document.getElementById('print-affirmation').textContent = rm.affirmation;
-
-    showScreen('screen-results');
-  }, 3500);
+    show('s-results');
+  }, 3000);
 }
 
-function printPlan(){
-  var phone = document.querySelector('.phone');
-  var printArea = document.getElementById('print-area');
-  phone.style.display = 'none';
-  printArea.style.display = 'block';
+function printPlan() {
   window.print();
-  phone.style.display = '';
-  printArea.style.display = 'none';
 }
 
-function restart(){
-  childName='';currentQ=0;answers=[];
-  document.getElementById('child-name').value='';
-  showScreen('screen-welcome');
+function restart() {
+  childName = '';
+  currentQ = 0;
+  answers = [];
+  document.getElementById('child-name').value = '';
+  document.getElementById('child-name').style.borderColor = '#c7d2fe';
+  show('s-welcome');
 }
 
-document.getElementById('child-name').addEventListener('keypress',function(e){
-  if(e.key==='Enter') startGame();
+// Wire up buttons
+document.getElementById('btn-go').addEventListener('click', startGame);
+document.getElementById('btn-next').addEventListener('click', nextQ);
+document.getElementById('btn-back').addEventListener('click', goBack);
+document.getElementById('btn-print').addEventListener('click', printPlan);
+document.getElementById('btn-restart').addEventListener('click', restart);
+document.getElementById('child-name').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') startGame();
 });
-document.getElementById('go-btn').addEventListener('click', startGame);
 </script>
 </body>
 </html>
